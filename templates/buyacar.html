@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="BaseTemplete.css">
+{% extends "basetemplete.html" %}
+{% block title %}<title>Buy a car</title>{% endblock %}
+{% block content %} 
+        <h1>Purchasing</h1>
+        <p>Purchasing content</p>
+
+   <p>Filter</p>
+   <form method="get" action="/">
+
+
+    <label for="year">Car Year:</label>
+    <select name="year" id="year">
+        <!--https://stackoverflow.com/questions/29451208/set-default-value-for-select-html-element-in-jinja-template-->
+        <option value="">All</option>
+        {% for year in all_years %}
+            <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
+        {% endfor %}
+        <!--https://stackoverflow.com/questions/29451208/set-default-value-for-select-html-element-in-jinja-template-->
+    </select>
+
+    <label for="fuel">Car Fuel Type:</label>
+    <select name="fuel" id="fuel">
+        <option value="">All</option>
+        {% for fuel in all_fuels %}
+            <option value="{{ fuel }}" {% if fuel == selected_fuel %}selected{% endif %}>{{ fuel }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+
+
+    
+
+
+
+</select>
+
+    </head>
+        <table boarder="1">
+                    <tr>
+            <th>Vehicle ID</th>
+            <th>VIN</th>
+            <th>Mileage</th>
+            <th>Description</th>
+            <th>color</th>
+            <th>Model Name</th>
+            <th>Model Year</th>
+            <th>Fuel Type</th>
+        </tr>
+        {% for v in vehicles %}
+        <tr>
+            <td>{{ v.vehicleID }}</td>
+            <td>{{ v.vin }}</td>
+            <td>{{ v.mileage }}</td>
+            <td>{{ v.description }}</td>
+            <td>{{v.color}}</td>
+            <td>{{ v.model_name }}</td>
+            <td>{{ v.model_year }}</td>
+            <td>{{ v.fuel_type }}</td>
+        </tr>
+        {% endfor %}
+
+        </table>
+            {% endblock %}

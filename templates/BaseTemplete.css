@@ -1,0 +1,98 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fcfafa;
+  color: #111111;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: midnightblue;
+  color: rgb(23, 22, 22);
+}
+
+.header-grid a {
+  color: rgb(20, 20, 20);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.header-grid a:hover {
+  text-decoration: underline;
+}
+
+.left-content {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.right-content {
+  margin-left: 1.5rem;
+}
+
+nav {
+  background-color: midnightblue;
+  padding: 0.5rem 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li a {
+  color: rgb(15, 15, 15);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+  border-bottom: 2px solid white;
+  padding-bottom: 2px;
+}
+
+
+main,
+.content {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+
+footer {
+  background-color: midnightblue;
+  color: rgb(27, 26, 26);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: 3rem;
+}
+
+footer h2 {
+  margin-top: 0;
+}
+
+footer p {
+  margin: 0.5rem 0 0;
+  line-height: 1.6;
+}
+
+footer a {
+  color: #090909;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+table{
+  border: #090909;
+}
