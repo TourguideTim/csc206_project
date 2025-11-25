@@ -6,25 +6,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bogle&display=swap" rel="stylesheet">
     <title>{% block title %}{% endblock %}</title>
-     <link rel="stylesheet" href="BaseTemplete.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='BaseTemplete.css') }}">
     {% block head %}{% endblock %}
 </head>
 
 <body>
     <div class="header-grid">
-        <div class="left-content"><a href="landingPage.html">Tim's Cars</a></div>
+        <div class="left-content"><a href="{{ url_for('landing') }}">Tim's Cars</a></div>
         <div class="right-content"><a>sign up</a></div>
-        <div class="right-content"><a href="SignIn.html">Hello, User</a></div>
+        <div class="right-content"><a href="SignIn.html">{% if current_user.is_authenticated %} sign out {%else%} Sign in {%endif%} </a></div>
     </div>
 
     <nav>
         <ul>
             <li><a href="Selling.html">Sell Your Car!</a></li>
             <li><a href="buyacar.html">Buy a new car!</a></li>
+            <label for="reports">reports</label>
+            <option value=></option>
+            <option value=></option>
+
+
+    </select>
         </ul>
     </nav>
 
-    {% block content %}{% endblock %}
+    {% block content %}
+    
+    
+    
+    {% endblock %}
 
     <footer>
         <h2>Contact US!</h2>

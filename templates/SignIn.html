@@ -2,9 +2,22 @@
 {% block title %}<title>Sign In</title>{% endblock %}
 {% block content %} 
         <h1>Login</h1>
-        <form> <label>Username:</label>
-            <input type="text" id="fname" name="fname"><br><br>
-                <label>Password:</label>
-                <input type="text" id="lname" name="lname"><br><br>
-                <input type="submit" value="Submit"> </form>
+    <form action="{{ url_for('signin') }}" method="POST">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 {% endblock %}

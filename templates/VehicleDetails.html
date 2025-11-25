@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="BaseTemplete.css"> 
+{% extends "basetemplete.html" %}
+{% block title %}<title>Vehicle Details </title>{% endblock %}
+{% block content %} 
+
+  <table>
+        <tr>
+            
+            <th>Model Name</th>
+            <th>Model Year</th>
+            <th>VIN</th>
+            <th>Mileage</th>
+            <th>Description</th>
+            <th>color</th>
+            <th>Fuel Type</th>
+
+
+        </tr>
+        <tr>
+            <td>{{ v.model_name }}</a></td>
+            <td>{{ v.model_year }}</td>
+            <td>{{ v.vin }}</td>
+            <td>{{ v.mileage }}</td>
+            <td>{{ v.description }}</td>
+            <td>{{v.color}}</td>
+            <td>{{ v.fuel_type }}</td>
+        </table>
+
+{% if role == 'Buyer' or role == 'Owner'%}
+    
+ <table>
+    <tr>
+      <th>Part needed</th>
+      <th>Cost</th>
+      <th>quantity</th>
+      <th>Installed?</th>
+    </tr>
+    <tr>
+      <th>this row is hard coded</th>
+      <th></th>
+      <th></th>
+      <th><button type="button">Install</button></th>
+    </tr>
+
+    <!--
+    {% for p in parts %}
+    <tr>
+      <td>{{ p.description }}</td>
+      <td>{{ p.cost }}</td>
+      <td>{{ p.quantity }}</td>
+      <td>{{ p.status }}</td>
+      {% if p.status == false %}
+        <td><button type="button">Install</button></td>
+      {% else %}
+        <td>Part already installed</td> 
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+  <button type="button">sell</button> 
+-->
+
+
+
+
+    
+
+{% elif role == 'Sales' or role == 'Owner' %}
+    <button type="submit">Sell Vehicle</button>
+{% elif role == 'Owner' %}
+    <p>seller info:</p>
+    <p>buyer info:</p>
+    <!--Seller info: {{s.info}}-->
+    <!--Buyer info: Name: {{b.name}}, Address: {{b.Address}}, Cell: {{b.cell}}, {{}}-->
+{%else%}
+<p>oops, Your not supposed to be here yet.</p>
+{%endif%}
+{% endblock %}
