@@ -145,19 +145,45 @@ def signin():
 @app.route("/VehicleDetails.html/<string:vin>")
 def VehicleDetails(vin):
     cursor = mysql.connection.cursor()
+
+    # get the vehicle row
     cursor.execute("SELECT * FROM vehicles WHERE vin = %s", (vin,))
     v = cursor.fetchone()
+    if not v:
+        cursor.close()
+        return redirect(url_for('buyacar'))
+
+    vehicle_id = v['vehicleID']
+    parts_sql = """
+        SELECT
+            ven.vendor_name, 
+            p.part_number, 
+            p.description, 
+            p.quantity, 
+            p.cost,
+            p.quantity * p.cost AS total_cost,
+            p.status
+        FROM 
+            vehicles v
+            INNER JOIN partorders po ON v.vehicleID = po.vehicleID
+            INNER JOIN parts p ON po.part_orderID = p.part_orderID
+            INNER JOIN vendors ven ON po.vendorID = ven.vendorID
+        WHERE 
+            v.vehicleID = %s
+    """
+    #https://jinja.palletsprojects.com/en/stable/templates/
+    #for the %s
+    #https://jinja.palletsprojects.com/en/stable/templates/
+    cursor.execute(parts_sql, (vehicle_id,))
+    parts = cursor.fetchall()
+
     cursor.close()
 
-    if not v:
-        return redirect(url_for('buyacar'))  
+    return render_template("VehicleDetails.html", role=current_user.role if current_user.is_authenticated else None, v=v, parts=parts )
 
-
-    return render_template("VehicleDetails.html", role=current_user.role if current_user.is_authenticated else None, v = v)
 
 
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-

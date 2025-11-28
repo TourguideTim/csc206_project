@@ -13,8 +13,8 @@
 <body>
     <div class="header-grid">
         <div class="left-content"><a href="{{ url_for('landing') }}">Tim's Cars</a></div>
-        <div class="right-content"><a>sign up</a></div>
-        <div class="right-content"><a href="SignIn.html">{% if current_user.is_authenticated %} sign out {%else%} Sign in {%endif%} </a></div>
+        <div class="right-content"><a href="SignIn.html">{% if current_user.is_authenticated %} sign out{%endif%} </a></div>
+        <div class="right-content"> {% if current_user.is_authenticated %} Hello, {{ current_user.first_name }} {% else %} <a href="{{ url_for('signin') }}">Sign in</a>{% endif %}</div>
     </div>
 
     <nav>
