@@ -49,11 +49,7 @@
     <td>{{ p.cost }}</td>
     <td>{{ p.total_cost }}</td>
     <td>{{ p.status }}</td>
-    <th>{%if p.status == 'Received' or p.status == 'Ordered'%}
-      <button type="button">Install</button>
-      {%else%}
-      part is installed
-      {%endif%}</th>
+    <th>{%if p.status == 'Received' or p.status == 'Ordered'%} <button type="button">Install</button>{%else%}part is installed{%endif%}</th>
   </tr>
   {% endfor %}
 </table>
