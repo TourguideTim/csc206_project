@@ -156,18 +156,32 @@ def VehicleDetails(vin):
     vehicle_id = v['vehicleID']
     parts_sql = """
         SELECT
-            ven.vendor_name, 
+            ven.vendor_name,
+            ven.phone_number,
+            ven.street,
+            ven.city,
+            ven.state,
+            ven.postal_code ,
             p.part_number, 
             p.description, 
             p.quantity, 
             p.cost,
             p.quantity * p.cost AS total_cost,
-            p.status
+            p.status,
+            c.phone_number,
+            c.email_address,
+            c.street,c.city,
+            c.state,
+            c.postal_code,
+            c.first_name, 
+            c.last_name
         FROM 
             vehicles v
             INNER JOIN partorders po ON v.vehicleID = po.vehicleID
             INNER JOIN parts p ON po.part_orderID = p.part_orderID
             INNER JOIN vendors ven ON po.vendorID = ven.vendorID
+            INNER JOIN purchasetransactions pt ON v.vehicleID = pt.vehicleID
+            INNER JOIN customers c ON pt.customerID = c.customerID
         WHERE 
             v.vehicleID = %s
     """

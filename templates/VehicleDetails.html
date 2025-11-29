@@ -32,7 +32,6 @@
     <tr>
       <th>Part needed</th>
       <th>part number</th>
-      <th>vendor</th>
       <th>quantity</th>
       <th>Cost</th>
       <th>total</th>
@@ -43,7 +42,6 @@
       {% for p in parts %}
   <tr>
     <td>{{ p.description }}</td>
-    <td>{{ p.part_number }}</td>
     <td>{{ p.vendor_name }}</td>
     <td>{{ p.quantity }}</td>
     <td>{{ p.cost }}</td>
@@ -53,6 +51,7 @@
   </tr>
   {% endfor %}
 </table>
+{%endif%}
 
 
 
@@ -60,12 +59,16 @@
 
     
 
-{% elif role == 'Sales' or role == 'Owner' %}
+{% if role == 'Sales' or role == 'Owner' %}
     <button type="submit">Sell Vehicle</button>
-{% elif role == 'Owner' %}
-    <p>seller info: </p>
-    <p>buyer info:</p>
-    <!--Seller info: {{s.info}}-->
-    <!--Buyer info: Name: {{b.name}}, Address: {{b.Address}}, Cell: {{b.cell}},-->
+    {%endif%}
+{% if role == 'Owner' %}
+  {% for p in parts %}
+    <p>Vendor info - name: {{p.vendor_name}} | Phone: {{p.phone_number}} |  Address: {{p.street}} {{p.city}}, {{p.state}} {{p.postal_code}}</p>
+    {% endfor %}
+  {%for c in customers%}
+    <p>buyer info- name:{{c.first_name}}, {{c.last_name}} | Phone: {{c.phone_number}} | email: {{c.email_address}} | address: {{c.street}} {{c.city}} {{c.state}} {{c.postal_code}}
+            </p>
+  {%endfor%}
 {%endif%}
 {% endblock %}
