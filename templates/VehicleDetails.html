@@ -63,12 +63,33 @@
     <button type="submit">Sell Vehicle</button>
     {%endif%}
 {% if role == 'Owner' %}
+<table>
+<tr>
+  <th>name</th>
+  <th>Phone</th>
+  <th>address</th>
+  </tr>
+  <tr>
   {% for p in parts %}
-    <p>Vendor info - name: {{p.vendor_name}} | Phone: {{p.phone_number}} |  Address: {{p.street}} {{p.city}}, {{p.state}} {{p.postal_code}}</p>
+   <td>{{p.vendor_name}} </td> 
+   <td> {{p.phone_number}}</td> 
+   <td>{{p.street}} {{p.city}}, {{p.state}} {{p.postal_code}}</td>
+  </tr>
     {% endfor %}
+  </table>
+  <tr>
+  <th>name</th>
+  <th>Phone</th>
+  <th>email</th>
+  <th>adress</th>
+  </tr>
+  <tr>
   {%for c in customers%}
-    <p>buyer info- name:{{c.first_name}}, {{c.last_name}} | Phone: {{c.phone_number}} | email: {{c.email_address}} | address: {{c.street}} {{c.city}} {{c.state}} {{c.postal_code}}
-            </p>
-  {%endfor%}
+    <td>{{c.first_name}}  {{c.last_name}} </td> 
+    <td>{{c.phone_number}} </td> 
+     <td> {{c.email_address}} </td> 
+    <td>{{c.street}} {{c.city}} {{c.state}} {{c.postal_code}}</td> 
+    </tr>
+    {%endfor%}
 {%endif%}
 {% endblock %}
