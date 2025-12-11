@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="BaseTemplete.css">
+
+{% extends "basetemplete.html" %}
+
+{% block title %}Add a customer{% endblock %}
+
+{% block content %}
+
+<form action="{{ url_for('addACustomer', next=next_page, vin=vin) }}" method="post">
+
+
+    <h3>New Customer Info</h3>
+
+    <h4>Personal Info</h4>
+
+    <label for="firstname">First name:</label>
+    <input type="text" id="firstname" name="firstname">
+
+    <label for="lastname">Last name:</label>
+    <input type="text" id="lastname" name="lastname">
+
+    <label for="PhoneNumber">Phone Number:</label>
+    <input type="text" id="PhoneNumber" name="PhoneNumber">
+
+    <label for="Email">Email:</label>
+    <input type="text" id="Email" name="Email">
+
+    <h4>Address</h4>
+
+    <label for="street">Street address:</label>
+    <input type="text" id="street" name="street">
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city">
+
+    <label for="state">State:</label>
+    <input type="text" id="state" name="state">
+
+    <label for="postalCode">Postal code:</label>
+    <input type="text" id="postalCode" name="postalCode">
+
+    <label for="idnumber">ID number:</label>
+    <input type="text" id="idnumber" name="idnumber">
+
+    <label for="Price">Business Name:</label>
+    <input type="text" id="Price" name="Price">
+
+    <input type="submit" value="Add customer"> 
+
+</form>
+
+{% endblock %}

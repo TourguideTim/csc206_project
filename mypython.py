@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import login_user, UserMixin, current_user
 from flask_mysqldb import MySQL
 from flask_login import LoginManager
@@ -146,7 +146,6 @@ def signin():
 def VehicleDetails(vin):
     cursor = mysql.connection.cursor()
 
-    # get the vehicle row
     cursor.execute("SELECT * FROM vehicles WHERE vin = %s", (vin,))
     v = cursor.fetchone()
     if not v:
@@ -196,8 +195,137 @@ def VehicleDetails(vin):
     return render_template("VehicleDetails.html", role=current_user.role if current_user.is_authenticated else None, v=v, parts=parts )
 
 
+@app.route("/buyingFromCustomer.html", methods=["GET", "POST"])
+def buyingFromCustomer():
+    if request.method == "POST":
+        cursor = mysql.connection.cursor()
+        
+        try:
+            customerID = request.form['customerID']
+            brand = request.form['Brand']
+            model = request.form['Model']
+            year = request.form['Year']
+            milage = request.form['Milage']
+            fuel_type = request.form['fuel_type']
+            vin = request.form['VIN']
+            manufacturerID = request.form['manufacturerID']
+            vehicle_typeID = request.form['vehicle_typeID']
+            description = request.form.get['description']
+            purchase_date = request.form['Test_DatetimeLocal']
+            price = request.form['Price']
+            salespersonID = request.form['userID']
+        
+            vehicle_query = """
+            INSERT INTO vehicles (vin, mileage, description, model_name, model_year, 
+                                fuel_type, manufacturerID, vehicle_typeID)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(vehicle_query, (vin, milage, description, model, year, fuel_type, manufacturerID, vehicle_typeID))
+            
+            vehicleID = cursor.lastrowid
+            
+            sale_query = """
+            INSERT INTO purchasetransactions (customerID, vehicleID, purchase_date, price, salespersonID)
+            VALUES (%s, %s, %s, %s, %s)
+            """
+            cursor.execute(sale_query, (customerID, vehicleID, purchase_date, price, salespersonID))
+            
+            mysql.connection.commit()
+            return redirect(url_for('buyingFromCustomer'))
+
+        finally:
+            cursor.close()
+
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT customerID, first_name, last_name FROM customers ORDER BY first_name")
+    customers = cursor.fetchall()
+    cursor.close()
+    
+    selected_customer_id = request.args.get('selected_customer_id', '')
+    return render_template("buyingFromCustomer.html", customers=customers, selected_customer_id=selected_customer_id)
+
+@app.route("/Sellvehicle/<vin>", methods=["GET", "POST"])
+def sellVehicle(vin):
+    cursor = mysql.connection.cursor()
+
+    cursor.execute("SELECT * FROM vehicles WHERE vin = %s", (vin,))
+    vehicle = cursor.fetchone()
+
+    cursor.execute("SELECT customerID, first_name, last_name FROM customers ORDER BY first_name")
+    customers = cursor.fetchall()
+
+    selected_customer_id = request.args.get('selected_customer_id', '')
+
+    if request.method == "POST":
+        try:
+            customerID = request.form['customerID']
+            sale_date = request.form['Test_Date']
+            salespersonID = request.form['userID']
+
+            sale_query = """
+                INSERT INTO purchasetransactions
+                    (customerID, vehicleID, purchase_date, price, salespersonID)
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            cursor.execute(sale_query, (customerID, vehicle['vehicleID'], sale_date, 0, salespersonID))
+            mysql.connection.commit()
+            return redirect(url_for('VehicleDetails', vin=vin))
+        finally:
+            cursor.close()
+
+    cursor.close()
+    return render_template(
+        "Sellvehicle.html",v=vehicle,customers=customers,selected_customer_id=selected_customer_id,vin=vin)
 
 
+
+@app.route("/addACustomer.html", methods=["GET", "POST"])
+def addACustomer():
+    vin = request.args.get('vin', '')
+    origin = request.args.get("next", "")
+    if request.method == "POST":
+        cursor = mysql.connection.cursor()
+    #https://www.w3schools.com/sql/func_sqlserver_coalesce.asp
+        cursor.execute("SELECT COALESCE(MAX(customerID), 0) + 1 AS next_id FROM customers")
+        next_id = cursor.fetchone()['next_id']
+    #https://www.w3schools.com/sql/func_sqlserver_coalesce.asp
+
+        firstname = request.form.get("firstname")
+        lastname = request.form.get("lastname")
+        phone = request.form.get("PhoneNumber")
+        email = request.form.get("Email")
+        street = request.form.get("street")
+        city = request.form.get("city")
+        state = request.form.get("state")
+        postal = request.form.get("postalCode")
+        idnum = request.form.get("idnumber")
+        business = request.form.get("Price")
+
+        insert_query = """
+            INSERT INTO customers
+            (customerID, phone_number, email_address, street, city, state, postal_code, id_number, first_name, last_name, business_name)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        """
+        cursor.execute(insert_query, (next_id, phone, email, street, city, state, postal, idnum, firstname, lastname, business))
+        mysql.connection.commit()
+        cursor.close()
+
+        next_page = request.args.get("next")
+        
+
+        #https://www.tutorialspoint.com/flask/flask_redirect_and_errors.htm
+        
+        if next_page == "buyingFromCustomer":
+            return redirect(url_for("buyingFromCustomer", selected_customer_id=next_id))
+        elif next_page == "sellVehicle":
+    
+            vin = request.args.get('vin', '')
+            return redirect(url_for("sellVehicle", vin=vin, selected_customer_id=next_id))
+
+        #https://www.tutorialspoint.com/flask/flask_redirect_and_errors.htm
+
+   
+    return render_template("addACustomer.html", title="Add a Customer",next_page=origin,  vin=vin)
 
 if __name__ == "__main__":
     app.run(debug=True)

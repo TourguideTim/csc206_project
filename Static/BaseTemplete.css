@@ -1,0 +1,184 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fcfafa;
+  color: #111111;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  padding: 1rem 2rem;
+  color: rgb(23, 22, 22);
+}
+
+.header-grid a {
+  color: rgb(20, 20, 20);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.header-grid a:hover {
+  text-decoration: underline;
+}
+
+.left-content {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.right-content {
+  margin-left: 1.5rem;
+}
+
+nav {
+  padding: 0.5rem 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li a {
+  color: rgb(15, 15, 15);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+  border-bottom: 2px solid rgb(61, 57, 57);
+  padding-bottom: 2px;
+}
+nav ul li {
+  border-right: 1px solid rgb(61, 57, 57);
+  padding-right: 1rem; 
+}
+
+nav ul li:last-child {
+  border-right: none; 
+}
+
+
+main,
+.content {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+
+footer {
+  color: rgb(27, 26, 26);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: 3rem;
+}
+
+footer h2 {
+  margin-top: 0;
+}
+
+footer p {
+  margin: 0.5rem 0 0;
+  line-height: 1.6;
+}
+
+footer a {
+  color: #090909;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+}
+
+form label {
+  font-weight: 300;
+  margin-right: 0.5rem;
+}
+
+form select,
+form button {
+  font-size: 1rem;
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  background: #2D82B7;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form button:hover {
+  background: #20659e;
+}
+
+#mileage_value {
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+table {
+  width: 98%;
+  border-collapse: collapse;
+  margin: 1rem auto;
+  background: #fff;
+  box-shadow: 0 1px 12px rgba(0,0,0,0.07);
+}
+
+table th, table td {
+  padding: 0.8rem;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+table th {
+  background: #f2f4f8;
+  color: #1a1b1e;
+  font-weight: 600;
+}
+
+table tr:hover {
+  background: #f9fafb;
+}
+
+table a {
+  color: #2D82B7;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+button[type="button"] {
+  background: #7a8078;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button[type="button"]:hover {
+  background: #2c7d27;
+}

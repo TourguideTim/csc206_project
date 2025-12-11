@@ -1,0 +1,73 @@
+{% extends "basetemplete.html" %}
+{% block title %}Customer sales{% endblock %}
+{% block content %}
+
+<h2>Customer Sales</h2>
+
+<p>Can't Find a Customer?</p>
+<a href="{{ url_for('addACustomer', next='buyingFromCustomer') }}"><button type="button">Add New Customer</button></a>
+
+
+
+<form action="{{ url_for('buyingFromCustomer') }}" method="post">
+
+    <label for="customerID">Customer:</label>
+    <select id="customerID" name="customerID" required>
+        <option value="">Choose a customer...</option>
+        {% for customer in customers %}
+        <option value="{{ customer.customerID }}"
+                {% if selected_customer_id == customer.customerID|string %}selected{% endif %}>
+            {{ customer.first_name }} {{ customer.last_name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label for="Brand">Brand:</label>
+    <input type="text" id="Brand" name="Brand">
+
+    <label for="Model">Model:</label>
+    <input type="text" id="Model" name="Model">
+
+    <label for="Year">Year:</label>
+    <input type="text" id="Year" name="Year"><br>
+
+    <label for="Milage">Mileage:</label>
+    <input type="text" id="Milage" name="Milage">
+
+    <label for="fuel_type">Fuel type:</label>
+    <input type="text" id="fuel_type" name="fuel_type">
+
+    <label for="VIN">VIN:</label>
+    <input type="text" id="VIN" name="VIN">
+
+    <label for="manufacturerID">Manufacturer ID:</label>
+    <input type="text" id="manufacturerID" name="manufacturerID" placeholder="enter ID number">
+
+    <label for="vehicle_typeID">Vehicle Type ID:</label>
+    <input type="text" id="vehicle_typeID" name="vehicle_typeID" placeholder="enter ID number">
+
+    <label>Repairs needed:</label>
+    <label>Yes</label>
+    <input type="radio" id="RepairsNeededYes" name="repairs_needed" value="Yes">
+    <label>No</label>
+    <input type="radio" id="RepairsNeededNo" name="repairs_needed" value="No" checked><br>
+
+    <label for="description">If yes, please explain:</label>
+    <input type="text" id="description" name="description">
+
+    <h4>Date of purchase:</h4>
+    <label for="Test_Date">Date of purchase:</label>
+    <input type="date" id="Test_Date" name="Test_Date">
+
+
+    <label for="Price">Price:</label>
+    <input type="text" id="Price" name="Price">
+
+    <label for="userID">SalesPersonID:</label>
+    <input type="text" id="userID" name="userID">
+
+    <button type="submit">Purchase Car</button>
+</form>
+
+{% endblock %}
+

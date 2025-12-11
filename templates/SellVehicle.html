@@ -1,0 +1,59 @@
+{% extends "basetemplete.html" %}
+{% block title %}<title>Selling Vehicle </title>{% endblock %}
+{% block content %} 
+
+  <table>
+        <tr>
+            
+            <th>Model Name</th>
+            <th>Model Year</th>
+            <th>VIN</th>
+            <th>Mileage</th>
+            <th>Description</th>
+            <th>color</th>
+            <th>Fuel Type</th>
+
+
+        </tr>
+        <tr>
+            <td>{{ v.model_name }}</td>
+            <td>{{ v.model_year }}</td>
+            <td>{{ v.vin }}</td>
+            <td>{{ v.mileage }}</td>
+            <td>{{ v.description }}</td>
+            <td>{{v.color}}</td>
+            <td>{{ v.fuel_type }}</td>
+        </table>
+<form action="{{ url_for('sellVehicle', vin=v.vin) }}" method="post">
+<!--https://www.geeksforgeeks.org/html/how-to-add-a-datepicker-in-form-using-html/-->
+    <label for="Test_Date">Date of purchase:</label>
+    <input type="date" id="Test_Date" name="Test_Date">
+<!--https://www.geeksforgeeks.org/html/how-to-add-a-datepicker-in-form-using-html/-->
+
+
+
+    <select id="customerID" name="customerID" required>
+        <option value="">Choose a customer...</option>
+        {% for customer in customers %}
+        <option value="{{ customer.customerID }}" 
+                {% if selected_customer_id == customer.customerID|string %}selected{% endif %}>
+            {{ customer.first_name }} {{ customer.last_name }}
+        </option>
+        {% endfor %}
+    </select>
+
+
+
+
+<label for="userID">SalesPersonID:</label>
+<input type="text" id="userID" name="userID">
+
+
+  <button type="Submit"> sell car</button>
+</form>
+
+  <form action="{{ url_for('addACustomer', next='sellVehicle', vin=v.vin) }}" method="get">
+    <p>Can't Find a Customer? - </p><button type="submit">Add New Customer</button>
+</form>
+
+  {%endblock%}

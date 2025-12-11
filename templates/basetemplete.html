@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bogle&display=swap" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='BaseTemplete.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <div class="header-grid">
+        <div class="left-content"><a href="{{ url_for('landing') }}">Tim's Cars</a></div>
+        <div class="right-content"><a href="SignIn.html">{% if current_user.is_authenticated %} sign out{%endif%} </a></div>
+        <div class="right-content"> {% if current_user.is_authenticated %} Hello, {{ current_user.first_name }} {% else %} <a href="{{ url_for('signin') }}">Sign in</a>{% endif %}</div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="buyacar.html">Sales</a></li>
+            <li><a href="buyingFromCustomer.html">Purchasing</a></li>
+            <option value=></option>
+            <option value=></option>
+
+
+    </select>
+        </ul>
+    </nav>
+
+    {% block content %}
+    
+    
+    
+    {% endblock %}
+
+    <footer>
+        <h2>Contact US!</h2>
+        <p>Phone: 570-850-1462 Email: TimBuysAndSellsCars@email.com Location: Somewhere o'er yonder</p>
+    </footer>
+</body>
+</html>
